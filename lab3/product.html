@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+            <title>AgentBase — AI Agent Directory</title>
+
+            <meta
+            name="description"
+            content="Discover the latest AI agents for coding, research, automation, productivity and more."
+        />
+
+        <style>
+            :root {
+            --bg: #070707;
+            --surface: #0d0d0f;
+            --surface-2: #121214;
+            --border: #242428;
+            --text: #f5f5f5;
+            --muted: #8b8b94;
+            --accent: #8b5cf6;
+            --accent-2: #a78bfa;
+            --green: #22c55e;
+            --yellow: #facc15;
+            --red: #ef4444;
+            --blue: #60a5fa;
+            }
+
+            * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            }
+
+            html {
+            scroll-behavior: smooth;
+            }
+
+            body {
+            font-family:
+                Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.16), transparent 40%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            }
+
+            button,
+            input,
+            select {
+            font: inherit;
+            }
+
+            a {
+            color: inherit;
+            text-decoration: none;
+            }
+
+            /* =========================
+            NAVBAR
+            ========================= */
+
+            nav {
+            height: 72px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 7, 7, 0.78);
+            backdrop-filter: blur(18px);
+            }
+
+            .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            }
+
+            .logo-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.35);
+            }
+
+            .nav-links {
+            display: flex;
+            gap: 28px;
+            color: var(--muted);
+            font-size: 14px;
+            }
+
+            .nav-links a:hover {
+            color: white;
+            }
+
+            .nav-button {
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 9px;
+            padding: 10px 16px;
+            font-weight: 700;
+            cursor: pointer;
+            }
+
+            /* =========================
+            HERO
+            ========================= */
+
+            .hero {
+            max-width: 1050px;
+            margin: auto;
+            text-align: center;
+            padding: 105px 20px 65px;
+            }
+
+            .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            background: rgba(139, 92, 246, 0.08);
+            color: #c4b5fd;
+            border-radius: 999px;
+            font-size: 12px;
+            margin-bottom: 25px;
+            }
+
+            .live-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--green);
+            }
+
+            .hero h1 {
+            font-size: clamp(45px, 7vw, 82px);
+            line-height: 0.98;
+            letter-spacing: -4px;
+            font-weight: 850;
+            max-width: 900px;
+            margin: auto;
+            }
+
+            .gradient-text {
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #a78bfa,
+                #60a5fa
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            }
+
+            .hero p {
+            max-width: 650px;
+            margin: 28px auto 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 17px;
+            }
+
+            /* =========================
+            SEARCH
+            ========================= */
+
+            .search-wrapper {
+            max-width: 760px;
+            margin: 42px auto 0;
+            position: relative;
+            }
+
+            .search-wrapper input {
+            width: 100%;
+            height: 62px;
+            background: rgba(20, 20, 22, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            color: white;
+            outline: none;
+            padding: 0 25px 0 55px;
+            font-size: 15px;
+            transition: 0.2s;
+            }
+
+            .search-wrapper input:focus {
+            border-color: rgba(139, 92, 246, 0.7);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.08);
+            }
+
+            .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: var(--muted);
+            font-size: 20px;
+            }
+
+            /* =========================
+            STATS
+            ========================= */
+
+            .stats {
+            max-width: 1100px;
+            margin: 0 auto 70px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            }
+
+            .stat {
+            border: 1px solid var(--border);
+            background: rgba(15, 15, 17, 0.7);
+            border-radius: 15px;
+            padding: 23px;
+            }
+
+            .stat-number {
+            font-size: 27px;
+            font-weight: 800;
+            }
+
+            .stat-label {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+            }
+
+            /* =========================
+            DIRECTORY
+            ========================= */
+
+            .directory {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px 100px;
+            }
+
+            .directory-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            gap: 20px;
+            }
+
+            .directory-title h2 {
+            font-size: 27px;
+            letter-spacing: -1px;
+            }
+
+            .directory-title p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 6px;
+            }
+
+            .sort {
+            background: var(--surface);
+            color: white;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 10px 13px;
+            outline: none;
+            }
+
+            /* =========================
+            FILTERS
+            ========================= */
+
+            .filters {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            margin-bottom: 22px;
+            }
+
+            .filter {
+            white-space: nowrap;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            padding: 9px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+            }
+
+            .filter:hover {
+            color: white;
+            border-color: #3b3b42;
+            }
+
+            .filter.active {
+            background: white;
+            color: black;
+            border-color: white;
+            }
+
+            /* =========================
+            CARDS
+            ========================= */
+
+            .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            }
+
+            .agent-card {
+            background:
+                linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.025),
+                rgba(255, 255, 255, 0.008)
+                ),
+                var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 21px;
+            min-height: 285px;
+            display: flex;
+            flex-direction: column;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+            }
+
+            .agent-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.45);
+            background: var(--surface-2);
+            }
+
+            .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            }
+
+            .agent-icon {
+            width: 47px;
+            height: 47px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            font-size: 19px;
+            color: white;
+            background: linear-gradient(135deg, #27272a, #18181b);
+            border: 1px solid #303036;
+            }
+
+            .rank {
+            color: #73737c;
+            font-size: 11px;
+            font-weight: 700;
+            }
+
+            .agent-card h3 {
+            font-size: 18px;
+            margin-top: 18px;
+            letter-spacing: -0.3px;
+            }
+
+            .company {
+            color: var(--accent-2);
+            font-size: 12px;
+            margin-top: 4px;
+            }
+
+            .description {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 13px;
+            margin-top: 14px;
+            flex-grow: 1;
+            }
+
+            .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            }
+
+            .tag {
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            background: #18181b;
+            color: #a1a1aa;
+            border: 1px solid #26262b;
+            }
+
+            .card-bottom {
+            border-top: 1px solid var(--border);
+            margin-top: 18px;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
+
+            .pricing {
+            font-size: 11px;
+            color: #a1a1aa;
+            }
+
+            .pricing strong {
+            color: white;
+            }
+
+            .visit {
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            padding: 8px 11px;
+            border-radius: 7px;
+            background: #1d1d21;
+            border: 1px solid #2c2c31;
+            transition: 0.2s;
+            }
+
+            .visit:hover {
+            background: white;
+            color: black;
+            }
+
+            /* =========================
+            FEATURED
+            ========================= */
+
+            .featured {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            }
+
+            .featured-box {
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            background:
+                radial-gradient(
+                circle at 80% 20%,
+                rgba(139, 92, 246, 0.14),
+                transparent 35%
+                ),
+                var(--surface);
+            border-radius: 20px;
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            }
+
+            .featured-label {
+            color: #a78bfa;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            }
+
+            .featured h2 {
+            font-size: 30px;
+            margin-top: 9px;
+            letter-spacing: -1px;
+            }
+
+            .featured p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 10px;
+            max-width: 620px;
+            }
+
+            .featured-button {
+            flex-shrink: 0;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 9px;
+            background: white;
+            color: black;
+            font-weight: 800;
+            cursor: pointer;
+            }
+
+            /* =========================
+            EMPTY STATE
+            ========================= */
+
+            .empty {
+            display: none;
+            text-align: center;
+            padding: 70px 20px;
+            border: 1px dashed var(--border);
+            border-radius: 16px;
+            color: var(--muted);
+            }
+
+            /* =========================
+            FOOTER
+            ========================= */
+
+            footer {
+            border-top: 1px solid var(--border);
+            padding: 35px 20px;
+            text-align: center;
+            color: #66666f;
+            font-size: 12px;
+            }
+
+            /* =========================
+            RESPONSIVE
+            ========================= */
+
+            @media (max-width: 900px) {
+            .agent-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+            }
+
+            @media (max-width: 600px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding-top: 75px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .agent-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .featured-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .directory-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            }
+        </style>
+        </head>
+
+        <body>
+
+        <!-- =========================
+            NAVIGATION
+        ========================== -->
+
+        <nav>
+            <a href="#" class="logo">
+            <span class="logo-mark">A</span>
+            AgentBase
+            </a>
+
+            <div class="nav-links">
+            <a href="#directory">Directory</a>
+            <a href="#featured">Featured</a>
+            <a href="#about">About</a>
+            </div>
+
+            <button class="nav-button" onclick="scrollToDirectory()">
+            Explore Agents
+            </button>
+        </nav>
+
+
+        <!-- =========================
+            HERO
+        ========================== -->
+
+        <section class="hero">
+
+            <div class="badge">
+            <span class="live-dot"></span>
+            Updated August 2026
+            </div>
+
+            <h1>
+            The directory for
+            <span class="gradient-text">AI agents.</span>
+            </h1>
+
+            <p>
+            Discover the latest AI agents for coding, research, automation,
+            productivity and autonomous workflows — all in one place.
+            </p>
+
+            <div class="search-wrapper">
+            <span class="search-icon">⌕</span>
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search agents, companies, capabilities..."
+                autocomplete="off"
+            />
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+            STATS
+        ========================== -->
+
+        <section class="stats">
+
+            <div class="stat">
+            <div class="stat-number" id="totalAgents">14</div>
+            <div class="stat-label">Agents listed</div>
+            </div>
+
+            <div class="stat">
+            <div class="stat-number">6</div>
+            <div class="stat-label">Categories</div>
+            </div>
+
+            <div class="stat">
+            <div class="stat-number">2026</div>
+            <div class="stat-label">Latest edition</div>
+            </div>
+
+            <div class="stat">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Possibilities</div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+            FEATURED
+        ========================== -->
+
+        <section class="featured" id="featured">
+
+            <div class="featured-box">
+
+            <div>
+                <div class="featured-label">Editor's pick</div>
+
+                <h2>Claude Code</h2>
+
+                <p>
+                A terminal-first coding agent designed for deep repository work,
+                multi-file changes, debugging, refactoring and autonomous
+                development workflows.
+                </p>
+            </div>
+
+            <a
+                class="featured-button"
+                href="https://claude.ai/code"
+                target="_blank"
+                rel="noopener"
+            >
+                Try Claude Code →
+            </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+            DIRECTORY
+        ========================== -->
+
+        <main class="directory" id="directory">
+
+            <div class="directory-header">
+
+            <div class="directory-title">
+                <h2>AI Agent Directory</h2>
+                <p>
+                Compare the tools shaping agentic software development in 2026.
+                </p>
+            </div>
+
+            <select class="sort" id="sortSelect">
+                <option value="rank">Sort: Featured</option>
+                <option value="name">Sort: A–Z</option>
+                <option value="company">Sort: Company</option>
+            </select>
+
+            </div>
+
+
+            <!-- FILTERS -->
+
+            <div class="filters">
+
+            <button class="filter active" data-category="all">
+                All
+            </button>
+
+            <button class="filter" data-category="coding">
+                Coding
+            </button>
+
+            <button class="filter" data-category="ide">
+                IDE
+            </button>
+
+            <button class="filter" data-category="autonomous">
+                Autonomous
+            </button>
+
+            <button class="filter" data-category="open-source">
+                Open Source
+            </button>
+
+            <button class="filter" data-category="cli">
+                CLI
+            </button>
+
+            <button class="filter" data-category="research">
+                Research
+            </button>
+
+            </div>
+
+
+            <!-- AGENT CARDS -->
+
+            <div class="agent-grid" id="agentGrid">
+
+
+            <!-- 1 -->
+
+            <article
+                class="agent-card"
+                data-name="Claude Code"
+                data-company="Anthropic"
+                data-category="coding cli"
+                data-rank="1"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">C</div>
+                <div class="rank">#01</div>
+                </div>
+
+                <h3>Claude Code</h3>
+                <div class="company">Anthropic</div>
+
+                <p class="description">
+                Terminal-first coding agent for repository analysis,
+                implementation, debugging, refactoring and multi-file tasks.
+                </p>
+
+                <div class="tags">
+                <span class="tag">Terminal</span>
+                <span class="tag">Coding</span>
+                <span class="tag">Refactoring</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Paid</strong> · Subscription / API
+                </div>
+
+                <a
+                    href="https://claude.ai/code"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 2 -->
+
+            <article
+                class="agent-card"
+                data-name="Cursor"
+                data-company="Anysphere"
+                data-category="coding ide autonomous"
+                data-rank="2"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">⌁</div>
+                <div class="rank">#02</div>
+                </div>
+
+                <h3>Cursor</h3>
+                <div class="company">Anysphere</div>
+
+                <p class="description">
+                AI-native development environment with agentic coding,
+                multi-file editing and background workflows.
+                </p>
+
+                <div class="tags">
+                <span class="tag">IDE</span>
+                <span class="tag">Agents</span>
+                <span class="tag">Coding</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Freemium</strong> · Subscription
+                </div>
+
+                <a
+                    href="https://cursor.com"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 3 -->
+
+            <article
+                class="agent-card"
+                data-name="OpenAI Codex"
+                data-company="OpenAI"
+                data-category="coding autonomous cli"
+                data-rank="3"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">O</div>
+                <div class="rank">#03</div>
+                </div>
+
+                <h3>OpenAI Codex</h3>
+                <div class="company">OpenAI</div>
+
+                <p class="description">
+                Agentic coding system for writing, modifying, testing and
+                reviewing software across local and cloud environments.
+                </p>
+
+                <div class="tags">
+                <span class="tag">Coding</span>
+                <span class="tag">Cloud</span>
+                <span class="tag">CLI</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Paid</strong> · Plan dependent
+                </div>
+
+                <a
+                    href="https://openai.com/codex/"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 4 -->
+
+            <article
+                class="agent-card"
+                data-name="Gemini CLI"
+                data-company="Google"
+                data-category="coding cli open-source"
+                data-rank="4"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">G</div>
+                <div class="rank">#04</div>
+                </div>
+
+                <h3>Gemini CLI</h3>
+                <div class="company">Google</div>
+
+                <p class="description">
+                Open-source command-line AI agent for coding, reasoning,
+                automation and developer workflows.
+                </p>
+
+                <div class="tags">
+                <span class="tag">CLI</span>
+                <span class="tag">Open Source</span>
+                <span class="tag">Coding</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Free tier</strong> · Usage limits
+                </div>
+
+                <a
+                    href="https://github.com/google-gemini/gemini-cli"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 5 -->
+
+            <article
+                class="agent-card"
+                data-name="Antigravity"
+                data-company="Google"
+                data-category="coding autonomous research"
+                data-rank="5"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">✦</div>
+                <div class="rank">#05</div>
+                </div>
+
+                <h3>Antigravity</h3>
+                <div class="company">Google</div>
+
+                <p class="description">
+                General-purpose managed agent capable of reasoning, executing
+                code, managing files and browsing the web in a secure sandbox.
+                </p>
+
+                <div class="tags">
+                <span class="tag">Cloud</span>
+                <span class="tag">Automation</span>
+                <span class="tag">Agent</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>API</strong> · Preview
+                </div>
+
+                <a
+                    href="https://ai.google.dev/gemini-api/docs/antigravity-agent"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 6 -->
+
+            <article
+                class="agent-card"
+                data-name="Devin"
+                data-company="Cognition"
+                data-category="autonomous coding"
+                data-rank="6"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">D</div>
+                <div class="rank">#06</div>
+                </div>
+
+                <h3>Devin</h3>
+                <div class="company">Cognition</div>
+
+                <p class="description">
+                Autonomous software engineering agent designed to take
+                defined engineering tasks and work through them in the cloud.
+                </p>
+
+                <div class="tags">
+                <span class="tag">Autonomous</span>
+                <span class="tag">Cloud</span>
+                <span class="tag">Engineering</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Paid</strong> · Usage based
+                </div>
+
+                <a
+                    href="https://devin.ai"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 7 -->
+
+            <article
+                class="agent-card"
+                data-name="OpenCode"
+                data-company="OpenCode"
+                data-category="coding cli open-source"
+                data-rank="7"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">⌘</div>
+                <div class="rank">#07</div>
+                </div>
+
+                <h3>OpenCode</h3>
+                <div class="company">Open Source</div>
+
+                <p class="description">
+                Model-agnostic terminal coding agent designed for developers
+                who want flexibility in model providers.
+                </p>
+
+                <div class="tags">
+                <span class="tag">Open Source</span>
+                <span class="tag">CLI</span>
+                <span class="tag">BYO Model</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Free</strong> · Model costs vary
+                </div>
+
+                <a
+                    href="https://github.com/opencode-ai/opencode"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 8 -->
+
+            <article
+                class="agent-card"
+                data-name="Cline"
+                data-company="Cline"
+                data-category="coding ide open-source"
+                data-rank="8"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">C</div>
+                <div class="rank">#08</div>
+                </div>
+
+                <h3>Cline</h3>
+                <div class="company">Open Source</div>
+
+                <p class="description">
+                Agentic coding assistant for VS Code that can inspect files,
+                edit code, execute commands and use external tools.
+                </p>
+
+                <div class="tags">
+                <span class="tag">VS Code</span>
+                <span class="tag">Open Source</span>
+                <span class="tag">Tools</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Free</strong> · BYO model
+                </div>
+
+                <a
+                    href="https://github.com/cline/cline"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 9 -->
+
+            <article
+                class="agent-card"
+                data-name="GitHub Copilot"
+                data-company="GitHub"
+                data-category="coding ide autonomous"
+                data-rank="9"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">GH</div>
+                <div class="rank">#09</div>
+                </div>
+
+                <h3>GitHub Copilot</h3>
+                <div class="company">GitHub</div>
+
+                <p class="description">
+                AI development platform with coding assistance, agent mode
+                and GitHub-integrated software workflows.
+                </p>
+
+                <div class="tags">
+                <span class="tag">IDE</span>
+                <span class="tag">GitHub</span>
+                <span class="tag">Agents</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Freemium</strong> · Plans available
+                </div>
+
+                <a
+                    href="https://github.com/features/copilot"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 10 -->
+
+            <article
+                class="agent-card"
+                data-name="Aider"
+                data-company="Aider"
+                data-category="coding cli open-source"
+                data-rank="10"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">A</div>
+                <div class="rank">#10</div>
+                </div>
+
+                <h3>Aider</h3>
+                <div class="company">Open Source</div>
+
+                <p class="description">
+                Terminal-based AI pair programming tool that works directly
+                with Git repositories and supports multiple models.
+                </p>
+
+                <div class="tags">
+                <span class="tag">CLI</span>
+                <span class="tag">Git</span>
+                <span class="tag">BYO Model</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Free</strong> · Model costs vary
+                </div>
+
+                <a
+                    href="https://aider.chat"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 11 -->
+
+            <article
+                class="agent-card"
+                data-name="Windsurf"
+                data-company="Windsurf"
+                data-category="coding ide autonomous"
+                data-rank="11"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">W</div>
+                <div class="rank">#11</div>
+                </div>
+
+                <h3>Windsurf</h3>
+                <div class="company">Windsurf</div>
+
+                <p class="description">
+                AI-powered development environment focused on agentic coding,
+                contextual assistance and multi-step development workflows.
+                </p>
+
+                <div class="tags">
+                <span class="tag">IDE</span>
+                <span class="tag">Coding</span>
+                <span class="tag">Agentic</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Freemium</strong> · Subscription
+                </div>
+
+                <a
+                    href="https://windsurf.com"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 12 -->
+
+            <article
+                class="agent-card"
+                data-name="OpenHands"
+                data-company="OpenHands"
+                data-category="coding autonomous open-source"
+                data-rank="12"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">OH</div>
+                <div class="rank">#12</div>
+                </div>
+
+                <h3>OpenHands</h3>
+                <div class="company">Open Source</div>
+
+                <p class="description">
+                Open-source autonomous software development platform for
+                coding tasks, experimentation and agent workflows.
+                </p>
+
+                <div class="tags">
+                <span class="tag">Open Source</span>
+                <span class="tag">Autonomous</span>
+                <span class="tag">Coding</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Open Source</strong>
+                </div>
+
+                <a
+                    href="https://github.com/All-Hands-AI/OpenHands"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 13 -->
+
+            <article
+                class="agent-card"
+                data-name="Amazon Q Developer"
+                data-company="Amazon"
+                data-category="coding ide cli"
+                data-rank="13"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">Q</div>
+                <div class="rank">#13</div>
+                </div>
+
+                <h3>Amazon Q Developer</h3>
+                <div class="company">Amazon Web Services</div>
+
+                <p class="description">
+                AI-powered developer agent integrated with AWS services,
+                IDEs and command-line workflows.
+                </p>
+
+                <div class="tags">
+                <span class="tag">AWS</span>
+                <span class="tag">IDE</span>
+                <span class="tag">CLI</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Free tier</strong> · Pro available
+                </div>
+
+                <a
+                    href="https://aws.amazon.com/q/developer/"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+
+            <!-- 14 -->
+
+            <article
+                class="agent-card"
+                data-name="Goose"
+                data-company="Block"
+                data-category="coding cli open-source autonomous"
+                data-rank="14"
+            >
+
+                <div class="card-top">
+                <div class="agent-icon">G</div>
+                <div class="rank">#14</div>
+                </div>
+
+                <h3>Goose</h3>
+                <div class="company">Block</div>
+
+                <p class="description">
+                Open-source AI agent framework designed to run tools,
+                interact with local environments and automate development work.
+                </p>
+
+                <div class="tags">
+                <span class="tag">Open Source</span>
+                <span class="tag">Agent</span>
+                <span class="tag">CLI</span>
+                </div>
+
+                <div class="card-bottom">
+                <div class="pricing">
+                    <strong>Open Source</strong>
+                </div>
+
+                <a
+                    href="https://github.com/block/goose"
+                    target="_blank"
+                    class="visit"
+                >
+                    Visit →
+                </a>
+                </div>
+
+            </article>
+
+            </div>
+
+
+            <div class="empty" id="emptyState">
+            <h3>No agents found</h3>
+            <p style="margin-top: 8px;">
+                Try a different search term or category.
+            </p>
+            </div>
+
+        </main>
+
+
+        <!-- =========================
+            FOOTER
+        ========================== -->
+
+        <footer id="about">
+            <p>
+            AgentBase · AI Agent Directory · 2026
+            </p>
+
+            <p style="margin-top: 7px;">
+            Rankings are editorial and can change as agents evolve.
+            </p>
+        </footer>
+
+
+        <!-- =========================
+            JAVASCRIPT
+        ========================== -->
+
+        <script>
+
+            const searchInput = document.getElementById("searchInput");
+            const agentGrid = document.getElementById("agentGrid");
+            const emptyState = document.getElementById("emptyState");
+            const sortSelect = document.getElementById("sortSelect");
+            const filters = document.querySelectorAll(".filter");
+
+            let activeCategory = "all";
+
+            function getCards() {
+            return Array.from(
+                document.querySelectorAll(".agent-card")
+            );
+            }
+
+
+            function filterAgents() {
+
+            const query =
+                searchInput.value
+                .toLowerCase()
+                .trim();
+
+            let visibleCount = 0;
+
+            getCards().forEach(card => {
+
+                const text =
+                card.innerText.toLowerCase();
+
+                const categories =
+                card.dataset.category.toLowerCase();
+
+                const matchesSearch =
+                text.includes(query);
+
+                const matchesCategory =
+                activeCategory === "all" ||
+                categories.includes(activeCategory);
+
+                if (matchesSearch && matchesCategory) {
+
+                card.style.display = "flex";
+                visibleCount++;
+
+                } else {
+
+                card.style.display = "none";
+
+                }
+
+            });
+
+            emptyState.style.display =
+                visibleCount === 0
+                ? "block"
+                : "none";
+            }
+
+
+            searchInput.addEventListener(
+            "input",
+            filterAgents
+            );
+
+
+            filters.forEach(filter => {
+
+            filter.addEventListener(
+                "click",
+                () => {
+
+                filters.forEach(f =>
+                    f.classList.remove("active")
+                );
+
+                filter.classList.add("active");
+
+                activeCategory =
+                    filter.dataset.category;
+
+                filterAgents();
+
+                }
+            );
+
+            });
+
+
+            sortSelect.addEventListener(
+            "change",
+            () => {
+
+                const cards = getCards();
+
+                cards.sort((a, b) => {
+
+                if (sortSelect.value === "name") {
+
+                    return a.dataset.name
+                    .localeCompare(b.dataset.name);
+
+                }
+
+                if (sortSelect.value === "company") {
+
+                    return a.dataset.company
+                    .localeCompare(b.dataset.company);
+
+                }
+
+                return Number(a.dataset.rank) -
+                        Number(b.dataset.rank);
+
+                });
+
+                cards.forEach(card =>
+                agentGrid.appendChild(card)
+                );
+
+                filterAgents();
+
+            }
+            );
+
+
+            function scrollToDirectory() {
+
+            document
+                .getElementById("directory")
+                .scrollIntoView({
+                behavior: "smooth"
+                });
+
+            }
+
+
+            // Initial render
+            filterAgents();
+
+        </script>
+
+</body>
+</html>
